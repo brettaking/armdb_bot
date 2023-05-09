@@ -36,16 +36,18 @@ async def actor(ctx, content='actor'):
     for i in filmography:
         await ctx.send(i)
         
+        
 #@bot.command()
 #async def top_actors(ctx, number: int):
-    #"""Gives the x most frequent actors on the spreadsheet. $top_actors <number>"""
+    """Gives the x most frequent actors on the spreadsheet. $top_actors <number>"""
+    #count_list = top.create_count_list()
     #for i in range(number):
-        #await ctx.send(top.count_list[i][0] + " is in " + str(top.count_list[i][1]) + " movies from the spreadsheet.")
+        #await ctx.send(count_list[i][0] + " is in " + str(count_list[i][1]) + " movies from the spreadsheet.")"""
         
 @bot.command()
 async def top_actors(ctx, number: int):
     """Gives the x most frequent actors on the spreadsheet. $top_actors <number>"""
-    count_list = top.create_count_list()
+    count_list = top.create_count_list(number)
     for i in range(number):
         await ctx.send(count_list[i][0] + " is in " + str(count_list[i][1]) + " movies from the spreadsheet.")
         
@@ -68,5 +70,6 @@ async def castlist(ctx, content='movie_title'):
     """Gives the cast list for a given movie.  $castlist <movie title> 2 in quotes>"""
     await ctx.send("The cast list for " + content)
     for actor in top.get_castlist(content):
-        await ctx.send(actor)    
+        await ctx.send(actor)   
+        
 bot.run(armdb_token.token)

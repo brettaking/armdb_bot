@@ -1,4 +1,4 @@
-#! Python 3
+#/usr/bin/python3
 import csv
 import re
 import gspread
@@ -61,22 +61,15 @@ def create_actor_list():
             actor_list.append(i)
     return actor_list
     
-def create_count_list():
+def create_count_list(num):
     actor_list = create_actor_list()
     actor_count = Counter(actor_list)
     count_list = zip(actor_count.keys(), actor_count.values())
     count_list = list(count_list)
     count_list.sort(key=lambda a:a[1], reverse=True)
+    count_list = count_list[:num]
     return count_list
-
-#print(count_list)
-
-def in_movie_check(actor):
-    movies = ""
-    for obj in movie_objects:
-        if (obj.in_movie_bool(actor)):
-            movies = movies +(obj.in_movie(actor)) + "\n"
-    return movies  
+    
 
 def in_movie_check(actor):
     movies = []
@@ -95,7 +88,6 @@ def actor_compare(actor1,actor2):
                 movies_in_common.append(movie1)
     return movies_in_common
         
-    
 def all_titles():
     for obj in movie_objects:
         print (obj.print_title())
@@ -108,12 +100,3 @@ def get_castlist(movie):
     for obj in movie_objects:
         if movie == obj.title:
             return obj.castlist()
-
-#def main():
-    #get_spreadsheet()
-    #movie_objects = create_movie_objects()
-    #return movie_objects
-    
-#main()
-    
-    
